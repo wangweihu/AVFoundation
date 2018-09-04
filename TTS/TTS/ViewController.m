@@ -26,7 +26,6 @@
     [self commonInit];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -66,11 +65,17 @@
         self.utterance = [AVSpeechUtterance speechUtteranceWithString:@"Tsutsumi"];
         self.label.text = @"Tsutsumi";
     }
+    
+    // 如果系统上存在语音，则将返回AVSpeechSynthesisVoice；反之，返回nil
+    AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithIdentifier:AVSpeechSynthesisVoiceIdentifierAlex];
+    if (voice) {
+        self.utterance.voice = voice;
+    }
 }
 
 - (void)btnClick:(UIButton *)sender {
     if (self.speechSynthesizer.isSpeaking) {
-        NSLog(@"正在说话中....");
+        NSLog(@"正在朗读中....");
         return;
     }
     [self.speechSynthesizer speakUtterance:self.utterance];
